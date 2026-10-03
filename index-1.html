@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#087457">
+<title>မိုးလေဝသ & လယ်ယာ</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Myanmar",sans-serif;background:#eef8f3;color:#123b35}.app{max-width:480px;margin:auto;min-height:100vh;background:#f7fbf9;padding-bottom:78px}
+header{background:linear-gradient(160deg,#087bc1,#087457);color:#fff;padding:18px;border-radius:0 0 24px 24px}.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:20px;font-weight:800}.loc{font-size:13px;opacity:.9;margin-top:7px}.temp{display:flex;align-items:center;justify-content:space-between;margin-top:18px}.temp b{font-size:52px;line-height:1}.weathericon{font-size:58px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}.stat{background:#ffffff22;padding:10px;border-radius:13px;text-align:center;font-size:12px}.stat b{display:block;font-size:16px;margin-top:3px}
+section{padding:16px 14px 0}.title{font-size:18px;font-weight:800;margin-bottom:10px}.card{background:#fff;border:1px solid #dcece5;border-radius:18px;padding:14px;box-shadow:0 3px 14px #164c3510}.alert{background:#fff2f2;border-color:#ffb7b7;color:#8f2020}.days{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.day{background:#fff;border-radius:14px;padding:9px 4px;text-align:center;font-size:11px;border:1px solid #e2eee9}.day b{display:block;font-size:15px;margin-top:4px}.crop{display:flex;gap:12px;align-items:center;margin-bottom:10px}.cropimg{width:58px;height:58px;border-radius:14px;display:grid;place-items:center;font-size:30px;background:#e7f6ed}.crop h3{margin:0 0 4px;font-size:16px}.crop p{margin:0;font-size:12px;color:#58716a}.grow{flex:1}button{border:0;border-radius:12px;padding:9px 11px;font-weight:700;background:#0b775f;color:#fff}.map{height:350px;border-radius:18px;background:#d9f0e1;position:relative;overflow:hidden;border:1px solid #c5e4d3}.map:before{content:"";position:absolute;inset:12% 22% 6% 20%;background:#b8d99e;clip-path:polygon(42% 0,62% 5%,70% 20%,62% 35%,76% 48%,66% 60%,72% 78%,57% 94%,45% 100%,34% 82%,28% 68%,18% 52%,22% 37%,8% 28%,24% 14%);box-shadow:0 0 0 3px #fff}.maplabel{position:absolute;font-weight:700;color:#175548;background:#ffffffd9;padding:4px 7px;border-radius:9px;font-size:11px}.m1{left:42%;top:27%}.m2{left:38%;top:44%}.m3{left:45%;top:60%}.m4{left:51%;top:76%}.m5{left:31%;top:70%}.legend{position:absolute;right:8px;top:8px;background:#ffffffdf;border-radius:12px;padding:9px;font-size:11px;z-index:1}.legend span{display:block;margin:4px 0}.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);max-width:480px;width:100%;background:#fff;border-top:1px solid #d8e9e1;display:grid;grid-template-columns:repeat(4,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom));z-index:5}.nav button{background:none;color:#668078;padding:7px 3px;font-size:11px}.nav button.active{color:#087257;background:#e5f6ee}.page{display:none}.page.active{display:block}.badge{display:inline-block;background:#ff4d4d;color:#fff;border-radius:20px;padding:2px 7px;font-size:10px}.muted{color:#60766f;font-size:12px}.loading{opacity:.65}
+</style></head>
+<body><div class="app">
+<header><div class="top"><div class="brand">🌿 မိုးလေဝသ & လယ်ယာ</div><div>⚙️</div></div>
+<div class="loc" id="location">📍 ရန်ကုန်တိုင်း • တည်နေရာရယူနေသည်…</div>
+<div class="temp"><div><div style="font-size:13px">လက်ရှိ မိုးလေဝသ</div><b id="temp">--°C</b><div id="summary">ဒေတာရယူနေသည်…</div></div><div class="weathericon" id="icon">🌤️</div></div>
+<div class="stats"><div class="stat">💧 မိုးရေချိန်<b id="rain">--%</b></div><div class="stat">💨 လေ<b id="wind">-- km/h</b></div><div class="stat">💧 စိုထိုင်းဆ<b id="humidity">--%</b></div></div></header>
+
+<div id="home" class="page active">
+<section><div class="title">🚨 တောင်သူသတိပေးချက်</div><div class="card alert" id="alert"><strong>ဒေတာတွက်ချက်နေသည်…</strong><p>မိုးလေဝသဒေတာရရှိပြီးနောက် အခြေအနေအလိုက် သတိပေးချက် ပြောင်းလဲပါမည်။</p></div></section>
+<section><div class="title">၇ ရက် မိုးလေဝသ</div><div class="days" id="days"><div class="day loading">ဒေတာ<br>…</div><div class="day loading">ဒေတာ<br>…</div><div class="day loading">ဒေတာ<br>…</div><div class="day loading">ဒေတာ<br>…</div></div></section>
+<section><div class="title">🌾 သီးနှံအလိုက် အကြံပြုချက်</div><div class="card">
+<div class="crop"><div class="cropimg">🌾</div><div class="grow"><h3>စပါး</h3><p>မိုးနှင့် ရေဝပ်မှုအခြေအနေကို စောင့်ကြည့်ပါ။</p></div><button onclick="showCrop('စပါး')">ကြည့်မယ်</button></div>
+<div class="crop"><div class="cropimg">🫘</div><div class="grow"><h3>ပဲတီစိမ်း</h3><p>စိုထိုင်းဆနှင့် အရွက်ရောဂါများကို စောင့်ကြည့်ပါ။</p></div><button onclick="showCrop('ပဲတီစိမ်း')">ကြည့်မယ်</button></div>
+<div class="crop"><div class="cropimg">🌽</div><div class="grow"><h3>ပြောင်း</h3><p>မိုးမတိုင်မီ ရေစီးဆင်းမှုကို ပြင်ဆင်ပါ။</p></div><button onclick="showCrop('ပြောင်း')">ကြည့်မယ်</button></div>
+</div></section></div>
+
+<div id="map" class="page"><section><div class="title">🗺️ မြန်မာနိုင်ငံ မိုးလေဝသမြေပုံ</div><div class="map">
+<div class="legend"><b>မိုးရွာနိုင်ချေ</b><span>🔵 0–20%</span><span>🟢 20–50%</span><span>🟠 50–80%</span><span>🔴 80%+</span></div>
+<div class="maplabel m1">ကချင် 🌧️</div><div class="maplabel m2">မန္တလေး 🌤️</div><div class="maplabel m3">နေပြည်တော် 🌦️</div><div class="maplabel m4">ရန်ကုန် 🌧️</div><div class="maplabel m5">ဧရာဝတီ 🌧️</div></div>
+<div class="card" style="margin-top:10px"><b>ℹ️ မြေပုံ</b><p class="muted">လက်ရှိ UI သည် မြေပုံနေရာချထားမှုကို စမ်းသပ်ရန်ဖြစ်ပြီး တရားဝင် DMH မြေပုံဒေတာကို နောက်တစ်ဆင့်တွင် ချိတ်ဆက်နိုင်ပါသည်။</p></div></section></div>
+
+<div id="advice" class="page"><section><div class="title">🌱 လယ်ယာအကြံပြုချက်</div><div id="cropDetail" class="card"><b>သီးနှံတစ်မျိုးရွေးပါ</b><p class="muted">ရာသီဥတုအခြေအနေကို အခြေခံပြီး အကြံပြုချက်များကို ကြည့်နိုင်ပါတယ်။</p></div></section>
+<section><div class="card">
+<div class="crop"><div class="cropimg">🌾</div><div class="grow"><h3>စပါး</h3><p>ရေဝပ်မှု၊ မိုးများမှု၊ ရိတ်သိမ်းချိန်</p></div><button onclick="showCrop('စပါး')">ရွေးမယ်</button></div>
+<div class="crop"><div class="cropimg">🫘</div><div class="grow"><h3>ပဲတီစိမ်း</h3><p>စိုထိုင်းဆနှင့် ရောဂါစောင့်ကြည့်မှု</p></div><button onclick="showCrop('ပဲတီစိမ်း')">ရွေးမယ်</button></div>
+<div class="crop"><div class="cropimg">🌽</div><div class="grow"><h3>ပြောင်း</h3><p>မိုးနှင့် ရေစီးဆင်းမှု</p></div><button onclick="showCrop('ပြောင်း')">ရွေးမယ်</button></div>
+<div class="crop"><div class="cropimg">🌶️</div><div class="grow"><h3>ငရုတ်</h3><p>မိုးရေ၊ စိုထိုင်းဆနှင့် မှိုရောဂါ</p></div><button onclick="showCrop('ငရုတ်')">ရွေးမယ်</button></div>
+</div></section></div>
+
+<div id="alerts" class="page"><section><div class="title">🔔 သတိပေးချက်များ <span class="badge">Live</span></div><div id="alertsBox" class="card"><b>ဒေတာရယူနေသည်…</b></div></section></div>
+
+<nav class="nav"><button class="active" onclick="go('home',this)">🏠<br>ပင်မ</button><button onclick="go('map',this)">🗺️<br>မြေပုံ</button><button onclick="go('advice',this)">🌱<br>လယ်ယာ</button><button onclick="go('alerts',this)">🔔<br>သတိပေးချက်</button></nav></div>
+
+<script>
+const crops={
+'စပါး':'မိုးများနေပါက ရေထုတ်မြောင်းများ စစ်ဆေးပါ။ ရိတ်သိမ်းချိန်နီးပါက မိုးအခြေအနေကို နေ့စဉ်စောင့်ကြည့်ပြီး အခြောက်ခံရန် ကြိုတင်ပြင်ဆင်ပါ။',
+'ပဲတီစိမ်း':'စိုထိုင်းဆမြင့်ပါက အရွက်နှင့်ပင်စည်တွင် ရောဂါလက္ခဏာများကို စောင့်ကြည့်ပါ။ ရေဝပ်ခြင်းမဖြစ်အောင် မြောင်းများရှင်းလင်းပါ။',
+'ပြောင်း':'မိုးများနိုင်ပါက စိုက်ခင်းအတွင်း ရေစီးဆင်းမှုကောင်းအောင် ပြင်ဆင်ပါ။ လေပြင်းအခြေအနေကိုလည်း စောင့်ကြည့်ပါ။',
+'ငရုတ်':'မိုးများပြီး စိုထိုင်းဆမြင့်ပါက မှိုရောဂါဖြစ်နိုင်ခြေ တက်လာနိုင်သည်။ ရေမဝပ်စေရန် စောင့်ကြည့်ပါ။'};
+function go(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');scrollTo(0,0)}
+function showCrop(c){document.getElementById('cropDetail').innerHTML='<b>🌿 '+c+' အတွက် အကြံပြုချက်</b><p>'+crops[c]+'</p><small>ဤအကြံပြုချက်များသည် ယေဘုယျလယ်ယာအကြံပြုချက်များဖြစ်ပြီး ဒေသအလိုက် ကျွမ်းကျင်သူအကြံပြုချက်နှင့် တွဲဖက်အသုံးပြုပါ။</small>';go('advice',document.querySelectorAll('.nav button')[2])}
+function wxIcon(code){if(code>=95)return'⛈️';if(code>=80)return'🌧️';if(code>=61)return'🌧️';if(code>=51)return'🌦️';if(code>=45)return'🌫️';if(code>=1)return'🌤️';return'☀️'}
+function wxText(code){if(code>=95)return'မိုးကြိုးမုန်တိုင်း';if(code>=80)return'မိုးကြီး';if(code>=61)return'မိုးရွာ';if(code>=51)return'ဖွဲမိုး';if(code>=45)return'မြူ';if(code>=1)return'တိမ်အသင့်';return'နေသာ'}
+function dayName(s){return new Date(s).toLocaleDateString('my-MM',{weekday:'short'})}
+async function loadWeather(lat=16.8409,lon=96.1735,name='ရန်ကုန်တိုင်း'){try{
+const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum&timezone=auto&forecast_days=7`;
+const r=await fetch(url);if(!r.ok)throw Error('API');const d=await r.json();const c=d.current;
+document.getElementById('location').textContent='📍 '+name;
+document.getElementById('temp').textContent=Math.round(c.temperature_2m)+'°C';document.getElementById('summary').textContent=wxText(c.weather_code);document.getElementById('icon').textContent=wxIcon(c.weather_code);
+document.getElementById('rain').textContent=Math.round(c.precipitation||0)+' mm';document.getElementById('wind').textContent=Math.round(c.wind_speed_10m)+' km/h';document.getElementById('humidity').textContent=Math.round(c.relative_humidity_2m)+'%';
+document.getElementById('days').innerHTML=d.daily.time.slice(0,4).map((t,i)=>`<div class="day">${dayName(t)}<br>${wxIcon(d.daily.weather_code[i])}<b>${Math.round(d.daily.temperature_2m_max[i])}°/${Math.round(d.daily.temperature_2m_min[i])}°</b>${d.daily.precipitation_probability_max[i]}%</div>`).join('');
+const p=Math.max(...d.daily.precipitation_probability_max);let msg=p>=80?'နောက်ရက်များတွင် မိုးရွာနိုင်ချေ အလွန်မြင့်ပါသည်။ ရေထုတ်မြောင်းနှင့် ရိတ်သိမ်းမှုကို ကြိုတင်စီမံပါ။':p>=60?'မိုးရွာနိုင်ချေ မြင့်နေပါသည်။ စိုက်ခင်းရေစီးဆင်းမှုကို စစ်ဆေးပါ။':'မိုးရွာနိုင်ချေ မမြင့်ပါ။ ပုံမှန်စောင့်ကြည့်နိုင်ပါသည်။';
+document.getElementById('alert').innerHTML='<strong>🌦️ Live မိုးလေဝသသတိပေးချက်</strong><p>'+msg+'</p><span class="badge">Auto</span>';
+document.getElementById('alertsBox').innerHTML='<b>🌧️ မိုးရွာနိုင်ချေ အမြင့်ဆုံး: '+p+'%</b><p>'+msg+'</p><p class="muted">ဒေတာကို Open-Meteo Forecast API မှ ရယူထားပါသည်။</p>';
+}catch(e){document.getElementById('summary').textContent='ဒေတာရယူ၍မရပါ';document.getElementById('alert').innerHTML='<strong>⚠️ အင်တာနက်/ဒေတာဝန်ဆောင်မှု ပြဿနာ</strong><p>ခဏအကြာ ပြန်လည်စမ်းသပ်ပါ။</p>'}}
+if(navigator.geolocation){navigator.geolocation.getCurrentPosition(p=>loadWeather(p.coords.latitude,p.coords.longitude,'မိမိတည်နေရာ'),()=>loadWeather())}else loadWeather();
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+</script></body></html>
